@@ -11,7 +11,7 @@ class cameradrive:
     def __init__(self):
         self.bridge = CvBridge()
         self.image_pub = rospy.Publisher('/camera/image_raw', Image, queue_size=60)
-        self.capture = cv2.VideoCapture(0)
+        self.capture = cv2.VideoCapture(2)
 
     def capture_image(self):
         returnValue, image_data_cv= self.capture.read()

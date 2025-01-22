@@ -6,3 +6,18 @@ robot_names:
   - hero_5
   - hero_6
   - hero_7
+  - hero_8
+  - hero_9
+  - hero_10
+  - hero_11
+  
+  
+intensities:
+  hero_1: 128.0
+  hero_10: 5.0
+  hero_2: 182.0
+  hero_3: 17.0
+  hero_4: 105.0
+  hero_6: 71.0
+  hero_8: 41.0
+  hero_9: 135.0

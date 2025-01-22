@@ -4,6 +4,7 @@ import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 from std_msgs.msg  import Float32
+from sensor_msgs.msg import LaserScan
 
 class MultiRobotController:
     def __init__(self):
@@ -14,36 +15,23 @@ class MultiRobotController:
         
         self.linear_true_max=rospy.get_param('linear_true_max',0.0)
         self.angular_true_max=rospy.get_param('angular_true_max',0.0)
-        self.linear_true_tres=rospy.get_param('linear_true_tres',0.0)
-        self.angular_true_tres=rospy.get_param('angular_true_tres',0.0)
         self.linear_false=rospy.get_param('linear_false',0.0)
         self.angular_false=rospy.get_param('angular_false',0.0)
-        self.threshold_dist=rospy.get_param('threshold_dist',0.37)
-        self.max_dist=rospy.get_param('max_dist',0.37)
+
         
         
         for robot_name in self.robot_names:
-            topic_name=f"/{robot_name}/distance"
-            self.subscribers.append(rospy.Subscriber(topic_name,Float32,self.callback,robot_name))
+            topic_name=f"/{robot_name}/laser"
+            self.subscribers.append(rospy.Subscriber(topic_name,LaserScan,self.callback,robot_name))
             self.publishers[robot_name]=rospy.Publisher(f"/{robot_name}/velocity_controller/cmd_vel",Twist,queue_size=10)
             
         rospy.spin()
     
     def callback(self,data,robot_name):
-        if self.condition_met(data)==1:
-            self.send_velocity_1(robot_name)
-        elif self.condition_met(data)==3:
-            self.send_velocity_3(robot_name)
-        elif self.condition_met(data)==2:
+        if data.intensities[8]>rospy.get_param(f"intensities/{robot_name}",10.0):
             self.send_velocity_2(robot_name)
-    
-    def condition_met(self,data):
-        if data.data<self.threshold_dist:
-            return 1
-        elif data.data<self.max_dist:
-            return 2
         else:
-            return 3
+            self.send_velocity_3(robot_name)
     
     
     def send_velocity_2(self,robot_name):
@@ -56,12 +44,6 @@ class MultiRobotController:
         cmd=Twist()
         cmd.linear.x=self.linear_false
         cmd.angular.z=self.angular_false
-        self.publishers[robot_name].publish(cmd)
-        
-    def send_velocity_1(self,robot_name):
-        cmd=Twist()
-        cmd.linear.x=self.linear_true_tres
-        cmd.angular.z=self.angular_true_tres
         self.publishers[robot_name].publish(cmd)
         
 if __name__=='__main__':
