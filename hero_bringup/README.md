@@ -1,4 +1,4 @@
-# HeRo brignup Server
+# HeRo bringup Server
 
 This package bringup rosserial tcp server to connect the robots with ROS.
 
