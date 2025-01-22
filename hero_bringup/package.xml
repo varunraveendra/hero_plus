@@ -58,6 +58,9 @@
   <exec_depend>rosserial_python</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <depend>python-opencv</depend>
+  <depend>tensorflow</depend>
+  <depend>pandas</depend>
+  <depend>numpy</depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

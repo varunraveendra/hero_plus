@@ -12,11 +12,14 @@ class MultiRobotController:
         self.subscribers=[]
         self.publishers={}
         
-        self.linear_true=rospy.get_param('linear_true',0.0)
-        self.angular_true=rospy.get_param('angular_true',0.0)
+        self.linear_true_max=rospy.get_param('linear_true_max',0.0)
+        self.angular_true_max=rospy.get_param('angular_true_max',0.0)
+        self.linear_true_tres=rospy.get_param('linear_true_tres',0.0)
+        self.angular_true_tres=rospy.get_param('angular_true_tres',0.0)
         self.linear_false=rospy.get_param('linear_false',0.0)
         self.angular_false=rospy.get_param('angular_false',0.0)
         self.threshold_dist=rospy.get_param('threshold_dist',0.37)
+        self.max_dist=rospy.get_param('max_dist',0.37)
         
         
         for robot_name in self.robot_names:
@@ -30,35 +33,35 @@ class MultiRobotController:
         if self.condition_met(data)==1:
             self.send_velocity_1(robot_name)
         elif self.condition_met(data)==3:
-            self.send_velocity_2(robot_name)
+            self.send_velocity_3(robot_name)
         elif self.condition_met(data)==2:
-            self.send_velocity_stop(robot_name)
+            self.send_velocity_2(robot_name)
     
     def condition_met(self,data):
         if data.data<self.threshold_dist:
             return 1
-        elif data.data<0.1:
+        elif data.data<self.max_dist:
             return 2
         else:
             return 3
     
     
-    def send_velocity_1(self,robot_name):
+    def send_velocity_2(self,robot_name):
         cmd=Twist()
-        cmd.linear.x=self.linear_true
-        cmd.angular.z=self.angular_true
+        cmd.linear.x=self.linear_true_max
+        cmd.angular.z=self.angular_true_max
         self.publishers[robot_name].publish(cmd)  
         
-    def send_velocity_2(self,robot_name):
+    def send_velocity_3(self,robot_name):
         cmd=Twist()
         cmd.linear.x=self.linear_false
         cmd.angular.z=self.angular_false
         self.publishers[robot_name].publish(cmd)
         
-    def send_velocity_stop(self,robot_name):
+    def send_velocity_1(self,robot_name):
         cmd=Twist()
-        cmd.linear.x=0.0
-        cmd.angular.z=0.0
+        cmd.linear.x=self.linear_true_tres
+        cmd.angular.z=self.angular_true_tres
         self.publishers[robot_name].publish(cmd)
         
 if __name__=='__main__':

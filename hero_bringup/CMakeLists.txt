@@ -164,6 +164,7 @@ install(PROGRAMS
   scripts/camera_node.py
   scripts/gui_node.py
   scripts/nav_node.py
+  scripts/behavior_rec.py
   scripts/multi_robot_controller.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

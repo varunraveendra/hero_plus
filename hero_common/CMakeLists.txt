@@ -54,6 +54,7 @@ add_message_files(
   Encoder.msg
   Motor.msg
   location.msg
+  predictions.msg
 )
 
 ## Generate services in the 'srv' folder
