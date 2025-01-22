@@ -1,0 +1,4 @@
+<launch>
+  
+  <node pkg="hero_bringup" type="camera_driver.py" name="camera_driver" output="screen"/>
+</launch>

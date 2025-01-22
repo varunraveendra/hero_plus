@@ -65,9 +65,9 @@ void IMUSensor::init(ros::NodeHandle &nh, String heroName) {
 
   /* Setup IMU I2C communication */
   /* Initiate IMU */
-  Wire.pins(I2C_SDA, I2C_SCL); //3 as SDA and 1 as SCL
-  Wire.begin(); //3 as SDA and 1 as SCL
-  Wire.setClock(400000); // 400kHz I2C clock.
+  //Wire.pins(I2C_SDA, I2C_SCL); //3 as SDA and 1 as SCL
+  //Wire.begin(); //3 as SDA and 1 as SCL
+  //Wire.setClock(400000); // 400kHz I2C clock.
   /* Initialize device */
   delay(10);
   this->mpu = new MPU6050();

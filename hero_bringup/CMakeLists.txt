@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   rosserial_python
   std_msgs
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -166,6 +167,7 @@ install(PROGRAMS
   scripts/nav_node.py
   scripts/behavior_rec.py
   scripts/multi_robot_controller.py
+  scripts/multi_robot_controller_ir.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

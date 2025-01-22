@@ -10,3 +10,17 @@ robot_names:
   - hero_9
   - hero_10
   - hero_11
+<<<<<<< HEAD
+=======
+  
+  
+intensities:
+  hero_1: 128.0
+  hero_10: 5.0
+  hero_2: 182.0
+  hero_3: 17.0
+  hero_4: 105.0
+  hero_6: 71.0
+  hero_8: 41.0
+  hero_9: 135.0
+>>>>>>> f3c46236048841d09d9f34289c8d186b1f942102
