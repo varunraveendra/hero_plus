@@ -19,11 +19,13 @@ class KerasPredictionNode:
         self.publishers={}
         self.data_buffer={}
 
+
         for robot_name in self.robot_names:
             topic_name=f"/{robot_name}/distance"
             self.subscribers.append(rospy.Subscriber(topic_name,Float32,self.input_callback,robot_name))
             self.publishers[robot_name]=rospy.Publisher(f"/prediction/{robot_name}",predictions,queue_size=10)
             self.data_buffer[robot_name] = []
+
 
        
         
@@ -62,7 +64,7 @@ class KerasPredictionNode:
             
             # Predict using the model
             prediction = self.model.predict(input_data)
-            
+            #rospy.loginfo(prediction)
             # Process the prediction result
             self.process_prediction(prediction,robot_name)
         except Exception as e:
@@ -74,7 +76,7 @@ class KerasPredictionNode:
         """
         result = prediction  # Example: Argmax for classification, or adjust as needed
         #rospy.loginfo(f"Prediction result: {result},{robot_name}")
-        #rospy.loginfo(prediction)
+        rospy.loginfo(np.argmax(prediction))
         r=predictions()
         r.x=result[0][0]
         r.y=result[0][1]
@@ -85,8 +87,8 @@ class KerasPredictionNode:
 def main():
         
     # Node configuration
-    model_path = "/home/varun/catkin_ws/src/hero_common/hero_bringup/config/behaviorpredict.keras"  # Path to your saved Keras mode
-    buffer_size = 165               #30 seconds ==660         # Number of data points to collect before prediction
+    model_path = "/home/varun/catkin_ws/src/hero_plus/hero_bringup/config/behavior10predict.keras"  # Path to your saved Keras mode
+    buffer_size = 220               #30 seconds ==660         # Number of data points to collect before prediction
     
     # Instantiate the node class
     node = KerasPredictionNode(model_path,buffer_size)

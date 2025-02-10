@@ -10,13 +10,13 @@ from sklearn.preprocessing import FunctionTransformer
 from joblib import dump
 
 # Load the dataset
-file_path = '/home/varun/catkin_ws/src/hero_common/hero_bringup/config/30secondbehaviour.csv'
+file_path = '/home/varun/catkin_ws/src/hero_plus/hero_bringup/config/10secondbehaviour.csv'
 data = pd.read_csv(file_path)
 
 # Preprocessing: Binarize the sensor values
 X = data.iloc[:, :-1].applymap(lambda x: 1 if x < 0.8 else 0)  # Binarize LOS sensor values
-y = data['y']  # Behavior labels
-
+y = data.iloc[:,-1:]  # Behavior labels
+print(y)
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, shuffle=True)
 
@@ -29,12 +29,12 @@ rf = Pipeline([
 #rf = RandomForestClassifier(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 
-dump(rf,'/home/varun/catkin_ws/src/hero_common/hero_bringup/config/rf.joblib')
+dump(rf,'/home/varun/catkin_ws/src/hero_plus/hero_bringup/config/rf.joblib')
 # Predictions
 y_pred = rf.predict(X_test)
 
 # Classification Report
-target_names = ['Cycloidal', 'Aggregation', 'Dispersal']
+target_names = ['Cyclic', 'Aggregation', 'Dispersal']
 classification_rep = classification_report(y_test, y_pred, target_names=target_names)
 print("Classification Report:\n", classification_rep)
 
@@ -48,10 +48,10 @@ plt.title('Confusion Matrix')
 plt.show()
 
 # Feature Importance
-feature_importances = rf.feature_importances_
-plt.figure(figsize=(12, 6))
-plt.bar(range(len(feature_importances)), feature_importances, tick_label=X.columns)
-plt.xlabel('Sensor Index')
-plt.ylabel('Importance')
-plt.title('Feature Importance in Random Forest Classifier')
-plt.show()
+# feature_importances = rf.feature_importances_
+# plt.figure(figsize=(12, 6))
+# plt.bar(range(len(feature_importances)), feature_importances, tick_label=X.columns)
+# plt.xlabel('Sensor Index')
+# plt.ylabel('Importance')
+# plt.title('Feature Importance in Random Forest Classifier')
+# plt.show()

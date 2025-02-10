@@ -166,6 +166,7 @@ install(PROGRAMS
   scripts/gui_node.py
   scripts/nav_node.py
   scripts/behavior_rec.py
+  scripts/swarm_behavior_rec.py
   scripts/multi_robot_controller.py
   scripts/multi_robot_controller_ir.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

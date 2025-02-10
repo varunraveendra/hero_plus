@@ -11,12 +11,12 @@ import seaborn as sns
 
 # Ensure compatibility with TensorFlow 2.4.0
 #print("TensorFlow Version:", tf.__version__)
-window_size=82
+window_size=220
 # Disable GPU to ensure CPU-only computation
 tf.config.set_visible_devices([], 'GPU')
-data=pd.read_csv('/home/varun/catkin_ws/src/hero_common/hero_bringup/config/30secondbehaviour.csv',header=0)
+data=pd.read_csv('/home/varun/catkin_ws/src/hero_plus/hero_bringup/config/10secondbehaviour.csv',header=0)
 data=data.sample(frac=1)
-removed_rows = data.sample(n=10)
+removed_rows = data.sample(n=50)
 new_df = data.drop(removed_rows.index)
 test_data=removed_rows
 train_data=new_df
@@ -27,7 +27,7 @@ x=test_data.iloc[:,-window_size-1:-1]#.applymap(lambda x: 1 if x < 0.8 else 0)
 x_test=x.to_numpy()
 y_test=y.to_numpy()
 
-x_test=x_test.reshape(10,window_size,1)
+x_test=x_test.reshape(50,window_size,1)
 y_test = to_categorical(y_test-1, num_classes=3)
 
 
@@ -36,7 +36,7 @@ x=train_data.iloc[:,-window_size-1:-1]#.applymap(lambda x: 1 if x < 0.8 else 0)
 x_train=x.to_numpy()
 y_train=y.to_numpy()
 
-X_train=x_train.reshape(112,window_size,1)
+X_train=x_train.reshape(316,window_size,1)
 y_train = to_categorical(y_train-1, num_classes=3)
 
 
@@ -128,8 +128,8 @@ plt.show()
 #   print(f"Class probabilities: {prediction}")
 
 
-#model.save('/home/varun/catkin_ws/src/hero_common/hero_bringup/config/behaviorpredictbin.h5')
-#model.save("/home/varun/catkin_ws/src/hero_common/hero_bringup/config/behaviorpredictbin.keras")
+#model.save('/home/varun/catkin_ws/src/hero_plus/hero_bringup/config/behavior10predictbin.h5')
+#model.save("/home/varun/catkin_ws/src/hero_plus/hero_bringup/config/behavior10predict.keras")
 
 
 

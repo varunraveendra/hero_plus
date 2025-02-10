@@ -1,4 +1,5 @@
 <launch>
   <rosparam file="/home/varun/catkin_ws/src/hero_plus/hero_bringup/config/parameter.yaml" command="load"/>
   <node pkg="hero_bringup" type="behavior_rec.py" name="behavior_rec" output="screen"/>
+  <node pkg="hero_bringup" type="swarm_behavior_rec.py" name="swarm_behavior_rec" output="screen"/>
 </launch>
