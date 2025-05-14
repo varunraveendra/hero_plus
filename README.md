@@ -17,7 +17,7 @@ For more in-depth information about HeRo, please visit the original documentatio
   <img alt="robot" width="400px" src="https://github.com/varunraveendra/hero_common/raw/master/Images/Screenshot%202024-09-19%20at%2012.12.53%E2%80%AFAM.png"/>
 </p>
 
-## HeRo+ Author
+## HeRo+ Extension 
 <a href="https://github.com/varunraveendra">
   <img src="https://github.com/varunraveendra.png" width="50" alt="Varun Raveendra"/>
 </a>
